@@ -1,102 +1,109 @@
 {% extends 'layout.html' %}
 
 {% block css %}
-    <link rel="stylesheet" href="{{ url_for('static',filename='singleemp.css') }}" type="text/css">
+<link rel="stylesheet" href="{{ url_for('static',filename='singleemp.css') }}" type="text/css">
 {% endblock %}
 
 {% block body %}
-    <div class="child child4">
-      <h3 class="m-2">EMPLOYEE PROFILE PAGE</h3>
-    </div>
+<div class="child child4">
+    <h3 class="m-2">EMPLOYEE PROFILE PAGE</h3>
+</div>
 
-    <div class="child child5" style="color:rgb(0, 75, 93);">
-      <h3 class="m-2"><i>User : </i></h3>
-    </div>
+<div class="child child5" style="color:rgb(0, 75, 93);">
+    {% if user %}
+    <h3 class="m-2"><i>User :  {{ user['name'] }} </i></h3>
+    {% endif %}
+</div>
 
 
-    <div class="child child6 container">
-      <ul class="nav nav-tabs nav-fill mb-3">
+<div class="child child6 container">
+    <ul class="nav nav-tabs nav-fill mb-3">
         <li class="nav-item">
-          <a class="nav-link" style=" background-color:rgb(0, 75, 93); color:whitesmoke;" href="{{ url_for('dashboard') }}">View All
-            Employee</a>
+            <a class="nav-link" style=" background-color:rgb(0, 75, 93); color:whitesmoke;"
+               href="{{ url_for('dashboard') }}">View All
+                Employee</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" style=" background-color:rgb(0, 75, 93); color:whitesmoke;" href="{{ url_for('addnewemp') }}">Add
-            New Employee</a>
+            <a class="nav-link" style=" background-color:rgb(0, 75, 93); color:whitesmoke;"
+               href="{{ url_for('addnewemp') }}">Add
+                New Employee</a>
         </li>
-      </ul>
-      <div class="centercontent">
+    </ul>
+    <div class="centercontent">
         <div class="card">
-          <div class="row g-0">
-            <div class="col-md-4">
-              <img src="krishna.jpg" class="img-fluid rounded-start" alt="employee image">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="{{ url_for('static',filename='emp.jpg') }}" class="img-fluid rounded-start"
+                         alt="employee image">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h3 class="card-title">Employee Details.</h3>
+                        {%if single_emp %}
+                        <ul class="list-group list-group-numbered">
+                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                                <div class="ms-2 me-auto">
+                                    <div class="fw-bold">Full Name :  {{single_emp['name']}}</div>
+                                </div>
+                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                                <div class="ms-2 me-auto">
+                                    <div class="fw-bold">Email ID :  {{single_emp['email']}}</div>
+                                </div>
+
+                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                                <div class="ms-2 me-auto">
+                                    <div class="fw-bold">Phone :  {{single_emp['phone']}}</div>
+                                </div>
+
+                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                                <div class="ms-2 me-auto">
+                                    <div class="fw-bold">Address :  {{single_emp['address']}}</div>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                                <div class="ms-2 me-auto">
+                                    <div class="fw-bold">Joining Date :  {{single_emp['joining_date']}}</div>
+                                </div>
+                            </li>
+
+                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                                <div class="ms-2 me-auto">
+                                    <div class="fw-bold">Total Project Handled</div>
+                                    Websites and Mobile Apps.
+                                </div>
+                                <span class="badge bg-success rounded-pill">{{single_emp['total_projects']}}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                                <div class="ms-2 me-auto">
+                                    <div class="fw-bold">Total Test Cases</div>
+                                    Total test case written and reviewed
+                                </div>
+                                <span class="badge bg-info rounded-pill">{{single_emp['total_test_case']}}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                                <div class="ms-2 me-auto">
+                                    <div class="fw-bold">Total Defects</div>
+                                    Total defects found and rectified so far.
+                                </div>
+                                <span class="badge bg-warning rounded-pill">{{single_emp['total_defect_found']}}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                                <div class="ms-2 me-auto">
+                                    <div class="fw-bold">Total Defects Pending</div>
+                                    Total defects pending for next release.
+                                </div>
+                                <span class="badge bg-danger rounded-pill">{{single_emp['total_defects_pending']}}</span>
+                            </li>
+                        </ul>
+
+                        {% endif %}
+
+                        <p class="card-text"><small class="text-muted">Last updated on : </small></p>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h3 class="card-title">Employee Details.</h3>
-
-                <ul class="list-group list-group-numbered">
-                  <li class="list-group-item d-flex justify-content-between align-items-start">
-                    <div class="ms-2 me-auto">
-                      <div class="fw-bold">Full Name : </div>
-                    </div>
-                  <li class="list-group-item d-flex justify-content-between align-items-start">
-                    <div class="ms-2 me-auto">
-                      <div class="fw-bold">Email ID : </div>
-                    </div>
-
-                  <li class="list-group-item d-flex justify-content-between align-items-start">
-                    <div class="ms-2 me-auto">
-                      <div class="fw-bold">Phone : </div>
-                    </div>
-
-                  <li class="list-group-item d-flex justify-content-between align-items-start">
-                    <div class="ms-2 me-auto">
-                      <div class="fw-bold">Address : </div>
-                    </div>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between align-items-start">
-                    <div class="ms-2 me-auto">
-                      <div class="fw-bold">Joining Date : </div>
-                    </div>
-                  </li>
-
-                  <li class="list-group-item d-flex justify-content-between align-items-start">
-                    <div class="ms-2 me-auto">
-                      <div class="fw-bold">Total Project Handled</div>
-                      Websites and Mobile Apps.
-                    </div>
-                    <span class="badge bg-success rounded-pill">14</span>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between align-items-start">
-                    <div class="ms-2 me-auto">
-                      <div class="fw-bold">Total Test Cases</div>
-                      Total test case written and reviewed
-                    </div>
-                    <span class="badge bg-info rounded-pill">14</span>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between align-items-start">
-                    <div class="ms-2 me-auto">
-                      <div class="fw-bold">Total Defects</div>
-                      Total defects found and rectified so far.
-                    </div>
-                    <span class="badge bg-warning rounded-pill">14</span>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between align-items-start">
-                    <div class="ms-2 me-auto">
-                      <div class="fw-bold">Total Defects Pending</div>
-                      Total defects pending for next release.
-                    </div>
-                    <span class="badge bg-danger rounded-pill">14</span>
-                  </li>
-                </ul>
-
-                <p class="card-text"><small class="text-muted">Last updated on : </small></p>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
     </div>
+</div>
 
 {% endblock %}

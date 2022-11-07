@@ -1,34 +1,37 @@
 {% extends 'layout.html' %}
 
 {% block css %}
-    <link rel="stylesheet" href="{{ url_for('static',filename='home.css') }}" type="text/css">
+<link rel="stylesheet" href="{{ url_for('static',filename='home.css') }}" type="text/css">
 {% endblock %}
 
 {% block body %}
-    <div class="child child4">
-      <h3 class="m-2">Registration Page</h3>
-    </div>
+<div class="child child4">
+    <h3 class="m-2">Registration Page</h3>
+</div>
 
-    <div class="child child5" style="color:rgb(0, 75, 93);">
-      <h3 class="m-2"><i>User : </i></h3>
-    </div>
+<div class="child child5" style="color:rgb(0, 75, 93);">
+    {% if user %}
+    <h3 class="m-2"><i>User :  {{ user['name'] }} </i></h3>
+    {% endif %}
+</div>
 
-    <div class="child child6 container" style="color:rgb(0, 75, 93);">
-      <h3>Sign Up Form</h3>
-      <hr>
-      <form class="p-3">
+<div class="child child6 container" style="color:rgb(0, 75, 93);">
+    <h3>Sign Up Form  {% if registererror %} {{ registererror }} {% endif %}</h3>
+    <hr>
+    <form class="p-3" action="/register" method = "POST">
         <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Email address / Username</label>
-          <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-          <div id="emailHelp" class="form-text" style="color:rgb(0, 75, 93);">We'll never share your email with anyone
-            else.</div>
+            <label for="exampleInputEmail1" class="form-label" >Email address / Username</label>
+            <input type="text" name="name" required class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <div id="emailHelp" class="form-text" style="color:rgb(0, 75, 93);">We'll never share your email with anyone
+                else.
+            </div>
         </div>
         <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="password" name = "password" required class="form-control" id="exampleInputPassword1">
         </div>
         <button type="submit" class="btn text-light" style="background-color:rgb(0, 75, 93);">Register</button>
-      </form>
-    </div>
+    </form>
+</div>
 
 {% endblock %}
