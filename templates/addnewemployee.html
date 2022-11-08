@@ -23,15 +23,15 @@
 </div>
 
 <div class="child child6 container" style="color:rgb(0, 75, 93);">
-    <ul class="nav nav-tabs nav-fill">
+    <ul class="nav nav-tabs nav-fill mb-3">
         <li class="nav-item">
-            <a class="nav-link" style=" background-color:rgb(0, 75, 93); color:whitesmoke;"
-               href="{{ url_for('dashboard') }}">View All
-                Employee</a>
+            <a class="nav-link active" aria-current="page" href="{{ url_for('dashboard') }}"
+               style=" background-color: #00B8A9;; color:whitesmoke;"> <b>View All Employee </b></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" aria-current="page" style=" background-color:rgb(0, 75, 93); color:whitesmoke;"
-               href="{{ url_for('addnewemp') }}">Add New Employee</a>
+            <a class="nav-link" style=" background-color: #00B8A9;; color:whitesmoke;"
+               href="{{ url_for('addnewemp') }}"> <b>Add
+                New Employee </b></a>
         </li>
     </ul>
 
@@ -40,6 +40,7 @@
             <h3>ADD NEW EMPLOYEES</h3>
         </caption>
         <hr>
+        {% if user %}
         <form class="p-3" action="/addnewemp" method="POST">
             <div class="mb-2">
                 <label for="name" class="form-label">Name</label>
@@ -62,7 +63,11 @@
             </button>
         </form>
     </div>
+    {% else %}
+        <h1 style="color:red;">Please Login First to Add Employee Details...</h1>
+    {% endif %}
 </div>
+
 
 <div class="child child6right">
     <div class="circledivright">

@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee Management System</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static',filename='fynd_favicon.ico') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!--  template inheritance using jinja2 syntax-->
@@ -14,43 +15,42 @@
 
 <body>
 <div class="parent">
-    <div class="child child1">
-        <img src="{{ url_for('static',filename='fynd_logo.jpeg') }}" class="img-fluid rounded-start" height="40" width="40"
+    <div class="child child1" >
+        <img src="{{ url_for('static',filename='fynd_logo.png') }}" class="img-fluid rounded-start" height="65" width="65" class="center m-3"
                          alt="LOGO">
-
     </div>
     <div class="child child2">
-        <ul class="nav justify-content-center">
+        <ul class="nav justify-content-end">
             <li class="nav-item">
-                <a class="nav-link" style="color:rgb(0, 75, 93);" href="#">Instagram</a>
+                <a class="nav-link" style="color:rgb(0, 75, 93);" href="https://www.instagram.com/gofynd/">Instagram</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" style="color:rgb(0, 75, 93);" href="#">Linkedin</a>
+                <a class="nav-link" style="color:rgb(0, 75, 93);" href="https://www.facebook.com/gofynd">Facebook</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" style="color:rgb(0, 75, 93);" href="#">facebook</a>
+                <a class="nav-link" style="color:rgb(0, 75, 93);" href="https://twitter.com/gofynd">Twitter</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" style="color:rgb(0, 75, 93);" href="#">whatsapp</a>
+                <a class="nav-link" style="color:rgb(0, 75, 93);" href="https://www.linkedin.com/company/fynd-shopsense">LinkedIN</a>
             </li>
         </ul>
     </div>
     <div class="child child3">
-        <ul class="nav nav-tabs nav-fill" style="background-color:rgb(0, 75, 93);">
+        <ul class="nav nav-tabs nav-fill" style="background-color: #00B8A9;">
             <li class="nav-item">
-                <a class="nav-link" style="color:whitesmoke;" href="{{url_for('index')}}">Home</a>
+                <a class="nav-link" style="color: white;" href="{{url_for('index')}}"><b>Home</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" style="color:whitesmoke;" href="{{url_for('login')}}"> Login</a>
+                <a class="nav-link" style="color: white;" href="{{url_for('register')}}"><b>Register</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" style="color:whitesmoke;" href="{{url_for('register')}}">Register</a>
+                <a class="nav-link" style="color: white;" href="{{url_for('login')}}"><b>Login</b> </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" style="color:whitesmoke;" href="{{url_for('dashboard')}}">Dashboard</a>
+                <a class="nav-link" style="color: white;" href="{{url_for('dashboard')}}"> <b>Dashboard</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" style="color:whitesmoke;" href="{{url_for('logout')}}">Logout</a>
+                <a class="nav-link" style="color: white;" href="{{url_for('logout')}}"> <b>Logout</b></a>
             </li>
         </ul>
     </div>
@@ -58,9 +58,9 @@
     {% block body %}{% endblock %}
 
 
-    <div class="child child7" style="background-color:rgb(0, 75, 93); color:whitesmoke;">
-        <p class="p-3 text-center">copyright &copy; Developed and Designed by Amit Gupta , Email :-
-            amitcode77@gmail.com</p>
+    <div class="child child7" style="background-color:#00B8A9; color:white;" class="row align-items-center">
+        <p class="p-3 text-center"><b>copyright &copy; Developed and Designed by Amit Gupta , Email :-
+            amitcode77@gmail.com</b></p>
     </div>
 </div>
 

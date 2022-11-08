@@ -1,4 +1,4 @@
-html, body{    height: 100%;    background-color:whitesmoke;    color:rgb(0, 75, 93);}
+html, body{    height: 100%;    background-color: white;    color: rgb(0, 75, 93);}
 
 .parent{    height: 100%;    display: grid;    grid-template-columns: repeat(4, 1fr);
     grid-template-rows: 10% 5% 7% auto 7%;    }

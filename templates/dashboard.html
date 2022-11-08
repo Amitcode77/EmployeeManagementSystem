@@ -1,13 +1,14 @@
 {% extends 'layout.html' %}
 
 {% block css %}
-<link rel="stylesheet" href="{{ url_for('static',filename='dashboard.css') }}" type="text/css">
+<link rel="stylesheet" href="{{ url_for('static',filename='home.css') }}" type="text/css">
 {% endblock %}
 
 {% block body %}
 <div class="child child4">
-    <h3 class="m-2">Dashboard Page</h3>
+    <h3 class="m-2">Dashboard</h3>
 </div>
+
 
 <div class="child child5" style="color:rgb(0, 75, 93);">
     {% if user %}
@@ -20,20 +21,21 @@
     <ul class="nav nav-tabs nav-fill mb-3">
         <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{{ url_for('dashboard') }}"
-               style=" background-color:rgb(0, 75, 93); color:whitesmoke;">View All Employee</a>
+               style=" background-color: #00B8A9;; color:whitesmoke;"> <b>View All Employee </b></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" style=" background-color:rgb(0, 75, 93); color:whitesmoke;"
-               href="{{ url_for('addnewemp') }}">Add
-                New Employee</a>
+            <a class="nav-link" style=" background-color: #00B8A9;; color:whitesmoke;"
+               href="{{ url_for('addnewemp') }}"> <b>Add
+                New Employee </b></a>
         </li>
     </ul>
 
     <div class="table-responsive-lg caption-top">
         <caption>
-            <h3>LIST OF ALL EMPLOYEES</h3>
+            <h5>LIST OF ALL EMPLOYEES</h5>
         </caption>
         <hr>
+        {% if user %}
         <table class="table">
             <thead>
             <tr>
@@ -73,6 +75,11 @@
                 </tr>
 
             {% endfor %}
+
+            {% else %}
+              <h1 style="color:red;">Please Login First to See Employee Details...</h1>
+
+            {% endif %}
 
 
             </tbody>
