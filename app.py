@@ -1,11 +1,6 @@
-from flask import Flask, render_template, request, redirect, url_for, session, g
-from datetime import date
+from flask import render_template, request, redirect, url_for, session, g
 from werkzeug.security import generate_password_hash, check_password_hash
-import os
 from database import app, db, users, emp
-
-from flask_sqlalchemy import SQLAlchemy
-
 
 
 @app.teardown_appcontext
@@ -35,7 +30,8 @@ def index():
     max_testcase = emp.query.order_by(emp.total_test_case).first()
     max_bughunter = emp.query.order_by(emp.total_defect_found).first()
 
-    return render_template('index.html', user=user, max_projects=max_projects, max_testcase=max_testcase, max_bughunter=max_bughunter)
+    return render_template('index.html', user=user, max_projects=max_projects, max_testcase=max_testcase,
+                           max_bughunter=max_bughunter)
 
 
 @app.route('/login', methods=["POST", "GET"])
@@ -132,6 +128,7 @@ def fetchone(empid):
     user = get_current_user()
     emp_cur = emp.query.filter_by(empid=empid)
     single_emp = emp_cur.first()
+    # return single_emp.name
     return render_template('updateemployee.html', user=user, single_emp=single_emp)
 
 
@@ -148,10 +145,17 @@ def update():
         total_test_case = request.form['total_test_case']
         total_defect_found = request.form['total_defect_found']
         total_defects_pending = request.form['total_defects_pending']
-        update_emp = emp(name=name, email=email, phone=phone, address=address, total_projects=total_projects,
-                         total_test_case=total_test_case, total_defect_found=total_defect_found,
-                         total_defects_pending=total_defects_pending)
-        db.session.add(update_emp)
+        current_emp = emp.query.filter_by(empid=empid).first()
+
+        current_emp.name = name
+        current_emp.email = email
+        current_emp.phone = phone
+        current_emp.address = address
+        current_emp.total_projects = total_projects
+        current_emp.total_test_case = total_test_case
+        current_emp.total_defect_found = total_defect_found
+        current_emp.total_defects_pending =  total_defects_pending
+
         db.session.commit()
         return redirect(url_for('index'))
         # db = get_database()

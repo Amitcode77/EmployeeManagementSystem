@@ -1,13 +1,12 @@
-from flask import Flask, render_template, request, redirect, url_for, session, g
+from flask import Flask
 from datetime import date
-from werkzeug.security import generate_password_hash, check_password_hash
 import os
-
 from flask_sqlalchemy import SQLAlchemy
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = os.urandom(24)
 
+app = Flask(__name__)
+
+app.config['SECRET_KEY'] = os.urandom(24)
 app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///empmanagement.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)

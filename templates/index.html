@@ -6,20 +6,24 @@
 
 
 {% block body %}
+
 <div class="child child4">
     <h3 class="m-2">Home Page</h3>
 </div>
 
 <div class="child child5" style="color:rgb(0, 75, 93);">
     {% if user %}
-    <h3 class="m-2"><i>User :  {{ user['name'] }} </i></h3>
+    <h4 class="m-2"><i>User :  {{ user['name'] }} </i></h4>
     {% endif %}
 </div>
 
-<div class="child child6 container">
+<div class="child child6" style="background-image: url('../static/background_image.jpg');height: auto;
+   width: auto; ">
     <div class="centercontent">
-        <div class="textcontent">
-            <i>
+
+<!--            <img src="{{ url_for('static',filename='background_image.jpg') }}" class="img-fluid" alt="...">-->
+
+
                 {% if max_projects %}
                     <h3 class="m-2"><i>Most Projects Handled: {{ max_projects['name'] }} </i></h3>
                 {% endif %}
@@ -31,9 +35,9 @@
                 {% endif %}
 
                 <p>Developed by Amit Gupta.</p>
-            </i>
-        </div>
+
     </div>
 </div>
+
 
 {% endblock %}
