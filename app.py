@@ -1,7 +1,10 @@
+import os
+
 from flask import render_template, request, redirect, url_for, session, g
 from werkzeug.security import generate_password_hash, check_password_hash
 from database import app, db, users, emp
 
+port = int(os.environ.get('PORT', 5000))
 
 @app.teardown_appcontext
 def close_database(error):
@@ -187,4 +190,5 @@ def logout():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host = "0.0.0.0", port = port)
+
