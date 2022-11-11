@@ -92,7 +92,6 @@ def register():
 @app.route('/dashboard')
 def dashboard():
     user = get_current_user()
-
     all_emp = emp.query.all()
     return render_template('dashboard.html', user=user, all_emp=all_emp)
 
@@ -109,11 +108,6 @@ def addnewemp():
         new_emp = emp(name=name, email=email, phone=phone, address=address)
         db.session.add(new_emp)
         db.session.commit()
-        return redirect(url_for('index'))
-
-        # db = get_database()
-        # db.execute('insert into emp(name,email,phone,address) values (?,?,?,?)', [name, email, phone, address])
-        # db.commit()
         return redirect(url_for('dashboard'))
     return render_template('addnewemployee.html', user=user)
 
@@ -157,7 +151,7 @@ def update():
         current_emp.total_projects = total_projects
         current_emp.total_test_case = total_test_case
         current_emp.total_defect_found = total_defect_found
-        current_emp.total_defects_pending =  total_defects_pending
+        current_emp.total_defects_pending = total_defects_pending
 
         db.session.commit()
         return redirect(url_for('index'))

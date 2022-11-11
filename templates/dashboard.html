@@ -12,7 +12,7 @@
 
 <div class="child child5" style="color:rgb(0, 75, 93);">
     {% if user %}
-    <h3 class="m-2"><i>User :  {{ user['name'] }} </i></h3>
+    <h5 class="m-2"><i>User : {{ user['name'] }} </i></h3>
     {% endif %}
 </div>
 
@@ -21,12 +21,12 @@
     <ul class="nav nav-tabs nav-fill mb-3">
         <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{{ url_for('dashboard') }}"
-               style=" background-color: #00B8A9;; color:whitesmoke;"> <b>View All Employee </b></a>
+                style=" background-color: #00B8A9;; color:whitesmoke;"> <b>View All Employee </b></a>
         </li>
         <li class="nav-item">
             <a class="nav-link" style=" background-color: #00B8A9;; color:whitesmoke;"
-               href="{{ url_for('addnewemp') }}"> <b>Add
-                New Employee </b></a>
+                href="{{ url_for('addnewemp') }}"> <b>Add
+                    New Employee </b></a>
         </li>
     </ul>
 
@@ -38,19 +38,19 @@
         {% if user %}
         <table class="table">
             <thead>
-            <tr>
-                <th scope="col">Employee ID</th>
-                <th scope="col">Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Phone</th>
-                <th scope="col">Address</th>
-                <th scope="col">Update</th>
-                <th scope="col">Delete</th>
-                <th scope="col">View Full Profile</th>
-            </tr>
+                <tr>
+                    <th scope="col">Employee ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Update</th>
+                    <th scope="col">Delete</th>
+                    <th scope="col">View Full Profile</th>
+                </tr>
             </thead>
             <tbody>
-              {% for emp in all_emp %}
+                {% for emp in all_emp %}
                 <tr>
                     <th scope="row">{{ emp['empid'] }}</th>
                     <td>{{ emp['name'] }}</td>
@@ -59,27 +59,28 @@
                     <td>{{ emp['address'] }}</td>
                     <td>
                         <a class="btn btn-sm" style="background-color:rgb(0, 75, 93); color:whitesmoke;"
-                                href="{{ url_for('fetchone', empid = emp['empid']) }}">Update
+                            href="{{ url_for('fetchone', empid = emp['empid']) }}">Update
                         </a>
                     </td>
                     <td>
                         <a class="btn btn-sm" style="background-color:rgb(0, 75, 93); color:whitesmoke;"
-                                href="{{ url_for('deleteemp', empid = emp['empid']) }}">Delete
+                            href="{{ url_for('deleteemp', empid = emp['empid']) }}">Delete
                         </a>
                     </td>
                     <td>
-                        <a class="btn btn-sm" style="background-color:rgb(0, 75, 93); color:whitesmoke;" href="{{ url_for('singleemp', empid = emp['empid']) }}">View
+                        <a class="btn btn-sm" style="background-color:rgb(0, 75, 93); color:whitesmoke;"
+                            href="{{ url_for('singleemp', empid = emp['empid']) }}">View
                             Full Profile
                         </a>
                     </td>
                 </tr>
 
-            {% endfor %}
+                {% endfor %}
 
-            {% else %}
-              <h1 style="color:red;">Please Login First to See Employee Details...</h1>
+                {% else %}
+                <h1 style="color:red;">Please Login First to See Employee Details...</h1>
 
-            {% endif %}
+                {% endif %}
 
 
             </tbody>

@@ -11,7 +11,7 @@
 
 <div class="child child5" style="color:rgb(0, 75, 93);">
     {% if user %}
-    <h3 class="m-2"><i>User :  {{ user['name'] }} </i></h3>
+    <h5 class="m-2"><i>User : {{ user['name'] }} </i></h5>
     {% endif %}
 </div>
 
@@ -26,12 +26,12 @@
     <ul class="nav nav-tabs nav-fill mb-3">
         <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{{ url_for('dashboard') }}"
-               style=" background-color: #00B8A9;; color:whitesmoke;"> <b>View All Employee </b></a>
+                style=" background-color: #00B8A9;; color:whitesmoke;"> <b>View All Employee </b></a>
         </li>
         <li class="nav-item">
             <a class="nav-link" style=" background-color: #00B8A9;; color:whitesmoke;"
-               href="{{ url_for('addnewemp') }}"> <b>Add
-                New Employee </b></a>
+                href="{{ url_for('addnewemp') }}"> <b>Add
+                    New Employee </b></a>
         </li>
     </ul>
     <div class="table-responsive-lg caption-top">
@@ -43,39 +43,44 @@
         <form class="p-3" action="/update" method="POST">
             <div class="mb-2">
                 <label for="empid" class="form-label">Employee ID</label>
-                <input type="text" class="form-control" id="empid" value = "{{single_emp['empid']}}" name="empid" readonly>
+                <input type="text" class="form-control" id="empid" value="{{single_emp['empid']}}" name="empid"
+                    readonly>
             </div>
             <div class="mb-2">
                 <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" value = "{{single_emp.name}}" name="name">
+                <input type="text" class="form-control" id="name" value="{{single_emp.name}}" name="name">
             </div>
             <div class="mb-2">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" value = {{single_emp['email']}} name="email">
+                <input type="email" class="form-control" id="email" value={{single_emp['email']}} name="email">
             </div>
             <div class="mb-2">
                 <label for="phone" class="form-label">Phone</label>
-                <input type="number" class="form-control" id="phone" value = {{single_emp['phone']}} name="phone">
+                <input type="number" class="form-control" id="phone" value={{single_emp['phone']}} name="phone">
             </div>
             <div class="mb-2">
                 <label for="address" class="form-label">Address</label>
-                <input type="text" class="form-control" id="address" value = "{{single_emp['address']}}" name="address">
+                <input type="text" class="form-control" id="address" value="{{single_emp['address']}}" name="address">
             </div>
             <div class="mb-2">
                 <label for="total_projects" class="form-label">Total Project Handled</label>
-                <input type="number" class="form-control" id="total_projects" value = {{single_emp['total_projects']}} name="total_projects">
+                <input type="number" class="form-control" id="total_projects" value={{single_emp['total_projects']}}
+                    name="total_projects">
             </div>
             <div class="mb-2">
                 <label for="total_test_case" class="form-label">Total Test Cases</label>
-                <input type="number" class="form-control" id="total_test_case" value = {{single_emp['total_test_case']}} name="total_test_case">
+                <input type="number" class="form-control" id="total_test_case" value={{single_emp['total_test_case']}}
+                    name="total_test_case">
             </div>
             <div class="mb-2">
                 <label for="total_defect_found" class="form-label">Total Defects Found</label>
-                <input type="number" class="form-control" id="total_defect_found" value = {{single_emp['total_defect_found']}} name="total_defect_found">
+                <input type="number" class="form-control" id="total_defect_found"
+                    value={{single_emp['total_defect_found']}} name="total_defect_found">
             </div>
             <div class="mb-2">
                 <label for="total_defects_pending" class="form-label">Total Defects Pending</label>
-                <input type="number" class="form-control" id="total_defects_pending" value = {{single_emp['total_defects_pending']}} name="total_defects_pending">
+                <input type="number" class="form-control" id="total_defects_pending"
+                    value={{single_emp['total_defects_pending']}} name="total_defects_pending">
             </div>
             <button type="submit" class="btn text-light m-3" style="background-color:rgb(0, 75, 93);">Update
                 Employee

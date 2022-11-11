@@ -11,7 +11,7 @@
 
 <div class="child child5" style="color:rgb(0, 75, 93);">
     {% if user %}
-    <h3 class="m-2"><i>User :  {{ user['name'] }} </i></h3>
+    <h5 class="m-2"><i>User : {{ user['name'] }} </i></h5>
     {% endif %}
 </div>
 
@@ -26,12 +26,12 @@
     <ul class="nav nav-tabs nav-fill mb-3">
         <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{{ url_for('dashboard') }}"
-               style=" background-color: #00B8A9;; color:whitesmoke;"> <b>View All Employee </b></a>
+                style=" background-color: #00B8A9;; color:whitesmoke;"> <b>View All Employee </b></a>
         </li>
         <li class="nav-item">
             <a class="nav-link" style=" background-color: #00B8A9;; color:whitesmoke;"
-               href="{{ url_for('addnewemp') }}"> <b>Add
-                New Employee </b></a>
+                href="{{ url_for('addnewemp') }}"> <b>Add
+                    New Employee </b></a>
         </li>
     </ul>
 
@@ -64,7 +64,7 @@
         </form>
     </div>
     {% else %}
-        <h1 style="color:red;">Please Login First to Add Employee Details...</h1>
+    <h1 style="color:red;">Please Login First to Add Employee Details...</h1>
     {% endif %}
 </div>
 

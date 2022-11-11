@@ -8,36 +8,59 @@
 {% block body %}
 
 <div class="child child4">
-    <h3 class="m-2">Home Page</h3>
+  <h3 class="m-2">Employee management System</h3>
 </div>
 
 <div class="child child5" style="color:rgb(0, 75, 93);">
-    {% if user %}
-    <h4 class="m-2"><i>User :  {{ user['name'] }} </i></h4>
-    {% endif %}
+  {% if user %}
+  <h5 class="m-2"><i>User : {{ user['name'] }} </i></h5>
+  {% endif %}
 </div>
 
-<div class="child child6" style="background-image: url('../static/background_image.jpg');height: auto;
-   width: auto; ">
-    <div class="centercontent">
+<div class="child child6">
+  <div class="centercontent">
 
-<!--            <img src="{{ url_for('static',filename='background_image.jpg') }}" class="img-fluid" alt="...">-->
+    <!--            <img src="{{ url_for('static',filename='background_image.jpg') }}" class="img-fluid" alt="...">-->
 
+    <div class="row">
+      <div class="col-md-6 mb-4 mb-md-0">
+        <div class="col d-flex justify-content-center" >
+          {% if max_projects %}
+          <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="{{url_for('static',filename='trophy1.jpg')}}" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">Most Project Handled</h5>
+              <p class="card-text">{{ max_projects['name'] }}</p>
+            </div>
+          </div>
+          {% endif %}
 
-                {% if max_projects %}
-                    <h3 class="m-2"><i>Most Projects Handled: {{ max_projects['name'] }} </i></h3>
-                {% endif %}
-                {% if max_testcase %}
-                    <h3 class="m-2"><i>Most Testcases Added: {{ max_testcase['name'] }} </i></h3>
-                {% endif %}
-                {% if max_bughunter %}
-                    <h3 class="m-2"><i>Greatest Bug Hunter: {{ max_bughunter['name'] }} </i></h3>
-                {% endif %}
+          {% if max_testcase %}
+          <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="{{url_for('static',filename='mosttestcase.jpg')}}" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">Most Testcases Added</h5>
+              <p class="card-text">{{ max_testcase['name'] }}</p>
+            </div>
+          </div>
+          {% endif %}
 
-                <p>Developed by Amit Gupta.</p>
-
+          {% if max_bughunter %}
+          <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="{{url_for('static',filename='bughunter.jpg')}}" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">Greatest Bug Hunter</h5>
+              <p class="card-text">{{ max_bughunter.name }} </p>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="col-md-6 d-flex align-items-center">
+        <img src="{{url_for('static',filename='management.gif')}}" alt="management" class="img-fluid" height="500"
+          width="500">
+      </div>
     </div>
+  </div>
 </div>
-
-
 {% endblock %}

@@ -11,7 +11,7 @@
 
 <div class="child child5" style="color:rgb(0, 75, 93);">
     {% if user %}
-    <h3 class="m-2"><i>User :  {{ user['name'] }} </i></h3>
+    <h5 class="m-2"><i>User : {{ user['name'] }} </i></h5>
     {% endif %}
 </div>
 
@@ -20,31 +20,35 @@
     <h5>Create your account to continue.</h5>
     <hr>
     <div class="row">
-    <div class="col-md-6 mb-4 mb-md-0">
-    <form class="p-3" action="/register" method = "POST">
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label" >Email address / Username</label>
-            <input type="text" name="name" required class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <div class="col-md-6 mb-4 mb-md-0">
+            <form class="p-3" action="/register" method="POST">
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Email address / Username</label>
+                    <input type="text" name="name" required class="form-control" id="exampleInputEmail1"
+                        aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password <sup>*</sup> </label>
+                    <input type="password" name="password1" required class="form-control" id="exampleInputPassword1">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword2" class="form-label">Confirm Password <sup>*</sup> </label>
+                    <input type="password" name="password2" required class="form-control" id="exampleInputPassword2">
+                </div>
+                <button type="submit" class="btn text-light" style="background-color:rgb(0, 75, 93);">Create
+                    Account</button>
+            </form>
+            <div class="ml-2" style="color:rgb(0, 75, 93);">
+                <a href="{{ url_for('login') }}" class="text-dark font-weight-bold"> Already have an acocunt? Logn
+                    in</a>
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Password <sup>*</sup> </label>
-            <input type="password" name = "password1" required class="form-control" id="exampleInputPassword1">
-        </div>
-        <div class="mb-3">
-            <label for="exampleInputPassword2" class="form-label">Confirm Password <sup>*</sup> </label>
-            <input type="password" name = "password2" required class="form-control" id="exampleInputPassword2">
-        </div>
-        <button type="submit" class="btn text-light" style="background-color:rgb(0, 75, 93);">Create Account</button>
-    </form>
-    <div class="ml-2" style="color:rgb(0, 75, 93);">
-        <a href="{{ url_for('login') }}" class="text-dark font-weight-bold">  Already have an acocunt? Logn in</a>
-    </div>
-    </div>
 
-    <div class="col-md-6 d-flex align-items-center">
-        <img src="{{url_for('static',filename='registration.gif')}}" alt="register" class="img-fluid" height="300" width="300">
+        <div class="col-md-6 d-flex align-items-center">
+            <img src="{{url_for('static',filename='registration.gif')}}" alt="register" class="img-fluid" height="300"
+                width="300">
+        </div>
     </div>
-</div>
 </div>
 
 {% endblock %}
