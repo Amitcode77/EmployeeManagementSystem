@@ -40,6 +40,9 @@
             <h3>ADD NEW EMPLOYEES</h3>
         </caption>
         <hr>
+        {% if error %}
+        <h2>{{error}}</h2>
+        {% else %}
         {% if user %}
         <form class="p-3" action="/addnewemp" method="POST">
             <div class="mb-2">
@@ -65,6 +68,7 @@
     </div>
     {% else %}
     <h1 style="color:red;">Please Login First to Add Employee Details...</h1>
+    {% endif %}
     {% endif %}
 </div>
 

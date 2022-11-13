@@ -11,7 +11,6 @@ app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///empmanagement.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(50), unique=False, nullable=False)

@@ -32,9 +32,13 @@
 
     <div class="table-responsive-lg caption-top">
         <caption>
+            {% if error %}
+            <h2>{{error}}</h2>
+        {% else %}
             <h5>LIST OF ALL EMPLOYEES</h5>
         </caption>
         <hr>
+
         {% if user %}
         <table class="table">
             <thead>
@@ -81,7 +85,7 @@
                 <h1 style="color:red;">Please Login First to See Employee Details...</h1>
 
                 {% endif %}
-
+                {% endif %}
 
             </tbody>
         </table>

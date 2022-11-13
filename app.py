@@ -1,8 +1,9 @@
 import os
 
-from flask import render_template, request, redirect, url_for, session, g
+from flask import render_template, request, redirect, url_for, session, g, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from database import app, db, Users, Employee
+
 
 port = int(os.environ.get('PORT', 5000))
 
@@ -27,6 +28,13 @@ def get_current_user():
     return user
 
 
+def check_admin():
+    isAdmin = False
+    if 'user' in session:
+        isAdmin = session['isAdmin']
+    return isAdmin
+
+
 @app.route('/')
 def index():
     user = get_current_user()
@@ -36,6 +44,33 @@ def index():
 
     return render_template('index.html', user=user, max_projects=max_projects, max_testcase=max_testcase,
                            max_bughunter=max_bughunter)
+
+
+@app.route('/register', methods=["POST", "GET"])
+def register():
+    user = get_current_user()
+
+    if request.method == 'POST':
+        name = request.form['name']
+        password1 = request.form['password1']
+        password2 = request.form['password2']
+        if password1 != password2:
+            return render_template('register.html', registererror="Confirm Password Correctly!")
+
+        # hashing the password using generate_password_hash() method before saving to database
+        hashed_password = generate_password_hash(password1)
+        existing_user = Users.query.filter_by(name=name).first()
+
+        # if same user id exits before showing username that already exists
+        if existing_user:
+            return render_template('register.html', registererror="Username already taken, try different username")
+
+        new_user = Users(name=name, password=hashed_password)
+        db.session.add(new_user)
+        db.session.commit()
+        return redirect(url_for('index'))
+
+    return render_template('register.html', user=user)
 
 
 @app.route('/login', methods=["POST", "GET"])
@@ -52,6 +87,7 @@ def login():
         if user:
             if check_password_hash(user.password, password):
                 session['user'] = user.name
+                session['isAdmin'] = user.admin
                 return redirect(url_for('dashboard'))
             else:
                 error = "Username or Password did not match"
@@ -59,31 +95,6 @@ def login():
         else:
             error = "Please register first"
     return render_template('login.html', loginerror=error, user=user)
-
-
-@app.route('/register', methods=["POST", "GET"])
-def register():
-    user = get_current_user()
-
-    if request.method == 'POST':
-        name = request.form['name']
-        password1 = request.form['password1']
-        password2 = request.form['password2']
-        if password1 != password2:
-            return render_template('register.html', registererror="Confirm Password Correctly!")
-
-        hashed_password = generate_password_hash(password1)
-        existing_user = Users.query.filter_by(name=name).first()
-
-        if existing_user:
-            return render_template('register.html', registererror="Username already taken, try different username")
-
-        new_user = Users(name=name, password=hashed_password)
-        db.session.add(new_user)
-        db.session.commit()
-        return redirect(url_for('index'))
-
-    return render_template('register.html', user=user)
 
 
 @app.route('/dashboard')
@@ -96,6 +107,9 @@ def dashboard():
 @app.route('/addnewemp', methods=["POST", "GET"])
 def addnewemp():
     user = get_current_user()
+    is_admin = check_admin()
+    if not is_admin:
+        return render_template('addNewEmployee.html', user=user,error="You don't have admin permission")
     if request.method == "POST":
         name = request.form['name']
         name = name.strip()
@@ -121,10 +135,13 @@ def singleemp(empid):
 @app.route('/fetchone/<int:empid>')
 def fetchone(empid):
     user = get_current_user()
-    emp_cur = Employee.query.filter_by(empid=empid)
-    single_emp = emp_cur.first()
-    # return single_emp.name
-    return render_template('updateEmployee.html', user=user, single_emp=single_emp)
+    is_admin = check_admin()
+    if not is_admin:
+        return render_template('updateEmployee.html', user=user, error="You don't have update permission")
+    else:
+        emp_cur = Employee.query.filter_by(empid=empid)
+        single_emp = emp_cur.first()
+        return render_template('updateEmployee.html', user=user, single_emp=single_emp)
 
 
 @app.route('/update', methods=["POST", "GET"])
@@ -160,17 +177,24 @@ def update():
 @app.route('/deleteemp/<int:empid>', methods=["GET", "POST"])
 def deleteemp(empid):
     user = get_current_user()
+    is_admin = check_admin()
+
     if request.method == "GET":
-        data = Employee.query.get(empid)
-        db.session.delete(data)
-        db.session.commit()
-        return redirect(url_for('dashboard'))
+        if not is_admin:
+            print("You don't have admin permission")
+            return render_template('dashboard.html', error="You don't have admin permission")
+        else:
+            data = Employee.query.get(empid)
+            db.session.delete(data)
+            db.session.commit()
+            return redirect(url_for('dashboard'))
     return render_template('dashboard.html', user=user)
 
 
 @app.route('/logout')
 def logout():
-    session.pop('user', None)
+    # session.pop('user', None)
+    session.clear()
     return render_template('index.html', user=None)
 
 

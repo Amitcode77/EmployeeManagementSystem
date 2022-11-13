@@ -39,6 +39,9 @@
             <h3>UPDATE EMPLOYEES</h3>
         </caption>
         <hr>
+        {% if error %}
+        <h2>{{error}}</h2>
+        {% else %}
         {% if single_emp %}
         <form class="p-3" action="/update" method="POST">
             <div class="mb-2">
@@ -86,6 +89,7 @@
                 Employee
             </button>
         </form>
+        {% endif %}
         {% endif %}
     </div>
 </div>
