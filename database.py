@@ -12,7 +12,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 
-class users(db.Model):
+class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(50), unique=False, nullable=False)
     password = db.Column(db.String(20), unique=False, nullable=False)
@@ -24,7 +24,7 @@ class users(db.Model):
         self.admin = admin
 
 
-class emp(db.Model):
+class Employee(db.Model):
     empid = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(50), unique=False, nullable=False)
     email = db.Column(db.String(20), unique=False, nullable=False)

@@ -2,9 +2,10 @@ import os
 
 from flask import render_template, request, redirect, url_for, session, g
 from werkzeug.security import generate_password_hash, check_password_hash
-from database import app, db, users, emp
+from database import app, db, Users, Employee
 
 port = int(os.environ.get('PORT', 5000))
+
 
 @app.teardown_appcontext
 def close_database(error):
@@ -21,7 +22,7 @@ def get_current_user():
     user = None
     if 'user' in session:
         user = session['user']
-        user_cur = users.query.filter_by(name=user)
+        user_cur = Users.query.filter_by(name=user)
         user = user_cur.first()
     return user
 
@@ -29,9 +30,9 @@ def get_current_user():
 @app.route('/')
 def index():
     user = get_current_user()
-    max_projects = emp.query.order_by(emp.total_projects).first()
-    max_testcase = emp.query.order_by(emp.total_test_case).first()
-    max_bughunter = emp.query.order_by(emp.total_defect_found).first()
+    max_projects = Employee.query.order_by(Employee.total_projects.desc()).first()
+    max_testcase = Employee.query.order_by(Employee.total_test_case.desc()).first()
+    max_bughunter = Employee.query.order_by(Employee.total_defect_found.desc()).first()
 
     return render_template('index.html', user=user, max_projects=max_projects, max_testcase=max_testcase,
                            max_bughunter=max_bughunter)
@@ -45,7 +46,7 @@ def login():
     if request.method == 'POST':
         name = request.form['name']
         password = request.form['password']
-        user_cursor = users.query.filter_by(name=name)
+        user_cursor = Users.query.filter_by(name=name)
         user = user_cursor.first()
 
         if user:
@@ -72,16 +73,12 @@ def register():
             return render_template('register.html', registererror="Confirm Password Correctly!")
 
         hashed_password = generate_password_hash(password1)
-
-        existing_user = users.query.filter_by(name=name).first()
-        # existing_user = registered_users.fetchone()
+        existing_user = Users.query.filter_by(name=name).first()
 
         if existing_user:
             return render_template('register.html', registererror="Username already taken, try different username")
 
-        # db.execute('insert into users (name,password) values (?,?)', [name, hashed_password])
-        # db.commit()
-        new_user = users(name=name, password=hashed_password)
+        new_user = Users(name=name, password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
         return redirect(url_for('index'))
@@ -92,7 +89,7 @@ def register():
 @app.route('/dashboard')
 def dashboard():
     user = get_current_user()
-    all_emp = emp.query.all()
+    all_emp = Employee.query.all()
     return render_template('dashboard.html', user=user, all_emp=all_emp)
 
 
@@ -101,32 +98,33 @@ def addnewemp():
     user = get_current_user()
     if request.method == "POST":
         name = request.form['name']
+        name = name.strip()
         email = request.form['email']
         phone = request.form['phone']
         address = request.form['address']
 
-        new_emp = emp(name=name, email=email, phone=phone, address=address)
+        new_emp = Employee(name=name, email=email, phone=phone, address=address)
         db.session.add(new_emp)
         db.session.commit()
         return redirect(url_for('dashboard'))
-    return render_template('addnewemployee.html', user=user)
+    return render_template('addNewEmployee.html', user=user)
 
 
 @app.route('/singleemp/<int:empid>')
 def singleemp(empid):
     user = get_current_user()
-    emp_cur = emp.query.filter_by(empid=empid)
+    emp_cur = Employee.query.filter_by(empid=empid)
     single_emp = emp_cur.first()
-    return render_template('singleemployeeprofile.html', user=user, single_emp=single_emp)
+    return render_template('singleEmployeeProfile.html', user=user, single_emp=single_emp)
 
 
 @app.route('/fetchone/<int:empid>')
 def fetchone(empid):
     user = get_current_user()
-    emp_cur = emp.query.filter_by(empid=empid)
+    emp_cur = Employee.query.filter_by(empid=empid)
     single_emp = emp_cur.first()
     # return single_emp.name
-    return render_template('updateemployee.html', user=user, single_emp=single_emp)
+    return render_template('updateEmployee.html', user=user, single_emp=single_emp)
 
 
 @app.route('/update', methods=["POST", "GET"])
@@ -142,9 +140,10 @@ def update():
         total_test_case = request.form['total_test_case']
         total_defect_found = request.form['total_defect_found']
         total_defects_pending = request.form['total_defects_pending']
-        current_emp = emp.query.filter_by(empid=empid).first()
 
-        current_emp.name = name
+        current_emp = Employee.query.filter_by(empid=empid).first()
+
+        current_emp.name = name.strip()
         current_emp.email = email
         current_emp.phone = phone
         current_emp.address = address
@@ -154,23 +153,15 @@ def update():
         current_emp.total_defects_pending = total_defects_pending
 
         db.session.commit()
-        return redirect(url_for('index'))
-        # db = get_database()
-        # db.execute('update emp set name=?,email=?,phone=?,address=?,total_projects=?,total_test_case=?,'
-        #            'total_defect_found=?,total_defects_pending=? where empid=?',
-        #            [name, email, phone, address, total_projects, total_test_case, total_defect_found,
-        #             total_defects_pending, empid])
-        # db.commit()
-
         return redirect(url_for('dashboard'))
-    return render_template('updateemployee.html', user=user)
+    return render_template('updateEmployee.html', user=user)
 
 
 @app.route('/deleteemp/<int:empid>', methods=["GET", "POST"])
 def deleteemp(empid):
     user = get_current_user()
     if request.method == "GET":
-        data = emp.query.get(empid)
+        data = Employee.query.get(empid)
         db.session.delete(data)
         db.session.commit()
         return redirect(url_for('dashboard'))
@@ -184,5 +175,4 @@ def logout():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host = "0.0.0.0", port = port)
-
+    app.run(debug=True, host="0.0.0.0", port=port)

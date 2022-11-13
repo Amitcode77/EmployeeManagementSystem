@@ -18,13 +18,13 @@
 </div>
 
 <div class="child child6">
-  <div class="centercontent">
 
-    <!--            <img src="{{ url_for('static',filename='background_image.jpg') }}" class="img-fluid" alt="...">-->
+  <div class="centercontent">
 
     <div class="row">
       <div class="col-md-6 mb-4 mb-md-0">
         <div class="col d-flex justify-content-center" >
+          {% if user %}
           {% if max_projects %}
           <div class="card" style="width: 18rem;">
             <img class="card-img-top" src="{{url_for('static',filename='trophy1.jpg')}}" alt="Card image cap">
@@ -53,6 +53,7 @@
               <p class="card-text">{{ max_bughunter.name }} </p>
             </div>
           </div>
+          {% endif %}
           {% endif %}
         </div>
       </div>

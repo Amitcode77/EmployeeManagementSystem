@@ -44,19 +44,19 @@
         <form class="p-3" action="/addnewemp" method="POST">
             <div class="mb-2">
                 <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" name="name">
+                <input type="text" required class="form-control" id="name" name="name">
             </div>
             <div class="mb-2">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email">
+                <input type="email" required class="form-control" id="email" name="email">
             </div>
             <div class="mb-2">
                 <label for="phone" class="form-label">Phone</label>
-                <input type="text" class="form-control" id="phone" name="phone">
+                <input type="number" min="1000000000" max="9999999999" required class="form-control" id="phone" name="phone">
             </div>
             <div class="mb-2">
                 <label for="address" class="form-label">Address</label>
-                <input type="text" class="form-control" id="address" name="address">
+                <input type="text" required class="form-control" id="address" name="address">
             </div>
             <button type="submit" class="btn text-light m-3" style="background-color:rgb(0, 75, 93);">Add
                 Employee
